@@ -5,7 +5,7 @@ import (
 	"net/http"
 	"strings"
 
-	"github.com/fsschmitt/its-your-birthday/utils"
+	"github.com/fsschmitt/its-your-birthday/src/utils"
 	"github.com/gorilla/mux"
 )
 

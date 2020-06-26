@@ -75,6 +75,8 @@ definitions:
       id:
         type: "integer"
         format: "int64"
+      giftee:
+        type: "string"
       contributors:
         type: "array"
         items:
