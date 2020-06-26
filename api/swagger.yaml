@@ -1,0 +1,96 @@
+---
+swagger: "2.0"
+info:
+  description: "API to the Its your birthday service"
+  version: "1.0.0"
+  title: "Its your birthday API"
+  contact:
+    email: "a.santos@kigroup.de"
+  license:
+    name: "Apache 2.0"
+    url: "http://www.apache.org/licenses/LICENSE-2.0.html"
+paths:
+  /gifts:
+    get:
+      summary: "Retrieves a gift for a certain id"
+      description: "Retreves the necessary information to generate the gifts page\n"
+      operationId: "getGift"
+      produces:
+      - "application/json"
+      parameters:
+      - name: "id"
+        in: "query"
+        description: "The id of the gift to retrieve"
+        required: true
+        type: "string"
+        x-exportParamName: "Id"
+      responses:
+        "200":
+          description: "Gift with the provided id"
+          schema:
+            $ref: "#/definitions/Gift"
+        "400":
+          description: "Bad id"
+    post:
+      summary: "Creates a gift instance"
+      description: "Creates the instance of the gift where people can start chosing\
+        \ and paying for the gift\n"
+      operationId: "createGift"
+      parameters:
+      - in: "body"
+        name: "name"
+        description: "The user to create."
+        required: true
+        schema:
+          type: "string"
+        x-exportParamName: "Name"
+      responses:
+        "200":
+          description: "The created gift"
+          schema:
+            $ref: "#/definitions/Gift"
+definitions:
+  GiftContributor:
+    type: "object"
+    properties:
+      name:
+        type: "string"
+      hasPaid:
+        type: "boolean"
+        description: "User has paid or not"
+      upvotes:
+        type: "array"
+        description: "All the ids of the suggested gifts voted"
+        items:
+          type: "string"
+    example:
+      upvotes:
+      - "upvotes"
+      - "upvotes"
+      name: "name"
+      hasPaid: true
+  Gift:
+    type: "object"
+    properties:
+      id:
+        type: "integer"
+        format: "int64"
+      contributors:
+        type: "array"
+        items:
+          $ref: "#/definitions/GiftContributor"
+    description: "Describes the instance of the gift where people will all suggest\
+      \ stuff and pay later"
+    example:
+      id: 0
+      contributors:
+      - upvotes:
+        - "upvotes"
+        - "upvotes"
+        name: "name"
+        hasPaid: true
+      - upvotes:
+        - "upvotes"
+        - "upvotes"
+        name: "name"
+        hasPaid: true
